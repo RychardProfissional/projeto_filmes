@@ -12,6 +12,13 @@ module.exports = {
         foreground: "var(--foreground)",
       },
     },
+    backgroundSize: {
+      'auto': 'auto',
+      'cover': 'cover',
+      'contain': 'contain',
+      '100p': '100%',
+      '150p': '150%',
+    }
   },
   plugins: [],
 };

@@ -1,5 +1,8 @@
 import localFont from "next/font/local";
+import { headers } from 'next/headers';
+import { isValidElement, cloneElement, Children } from "react";
 import "./globals.css";
+import { UserProvider } from "@/components/context";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -18,12 +21,18 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const headersList = headers();
+  const User = headersList.get('X-user');
+  const user = User ? JSON.parse(User) : null;
+
   return (
     <html lang="pt-br">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased max-h-full`}
       >
-        {children}
+        <UserProvider user={user}> 
+          {children}
+        </UserProvider>
       </body>
     </html>
   );
