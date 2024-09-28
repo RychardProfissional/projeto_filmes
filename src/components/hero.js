@@ -2,7 +2,7 @@
 
 import { HiChevronDown } from 'react-icons/hi';
 
-export default function Hero() {
+export default function Hero({ title }) {
     const handleClick = () => {
         window.scrollTo({
             top: window.innerHeight - 70,
@@ -13,7 +13,7 @@ export default function Hero() {
     return (
         <div className="relative flex items-center justify-start w-screen h-screen bg-gray-300">
             <div className="ml-10">
-                <h1 className="text-6xl">Fimes Online</h1>
+                <h1 className="text-6xl">{title}</h1>
             </div>
             <div className='absolute text-4xl transform -translate-x-1/2 bottom-4 left-1/2 animate-bounce'>
                 <HiChevronDown 

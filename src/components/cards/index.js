@@ -2,8 +2,9 @@ import { api } from "@/lib/api";
 import { Card } from "./card";
 
 export const Cards = async ({filter, title=""}) => {
-    const filmes = await api.get(`filmes${filter ? `?filter=${filter}` : ""}`)
+    const filmes = await api.get(`/filmes`)
       .then(response => {
+        console.log(response.data)
         return response.data
       })
       .catch(e => {

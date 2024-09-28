@@ -4,18 +4,16 @@ import { useRouter } from "next/navigation";
   
 export const Card = ({
     id,
-    name = '', 
-    descricao,
-    data_lancamento,
-    data_lancamento_site,
-    imagem,
+    title = '', 
+    plot,
+    released,
+    poster,
     categorias,
-    duracao,
-    generos,
-    idiomas = [],
-    avaliacao,
-    classificacao,
-    sinopse,
+    runtime,
+    genres,
+    language = [],
+    ratings,
+    rated,
   }) => {
     const route = useRouter()
     return (
@@ -23,34 +21,34 @@ export const Card = ({
         className="flex flex-col cursor-pointer overflow-hidden font-normal rounded-lg shadow-lg min-w-[27vw] relative group hover:scale-[1.03] transition-all"
         onClick={() => route.push(`/filmes/${id}`)}
       >
-        <img className="h-[200px] transition-all w-full object-cover" src={imagem} alt={name} />
+        <img className="h-[200px] transition-all w-full object-cover" src={poster} alt={title} />
         <div className="flex flex-col gap-2 p-4">
           <div className="flex gap-2 align-middle">
-            {classificacao && <ClassificacaoIndicativa classificacao={classificacao}/>}
-            <p className="overflow-hidden text-sm max-h-10 line-clamp-2">{descricao}</p>
+            {rated && <ClassificacaoIndicativa classificacao={rated}/>}
+            <p className="overflow-hidden text-sm max-h-10 line-clamp-2">{plot}</p>
           </div>
-          <span className="text-sm">{data_lancamento}</span>
+          <span className="text-sm">{released}</span>
           <div className="flex flex-wrap gap-2">
             {categorias?.map((c, i) => <span key={`categoria-${i}`} className="px-2 text-sm bg-gray-200 rounded-full">{c}</span>)}
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-sm">{duracao} min</span>
-            <span className="text-sm">{generos?.map((g, i) => <span key={`genero-${i}`}>{g}</span>)}</span>
+            <span className="text-sm">{runtime} min</span>
+            <span className="text-sm">{genres?.map((g, i) => <span key={`genero-${i}`}>{g}</span>)}</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-sm">
-              {idiomas.length > 0 ? (
-                idiomas.map((id, i) => (
+              {language.length > 0 ? (
+                language.map((id, i) => (
                   <span key={`idioma-${i}`}>
                     {id}
-                    {i < idiomas.length - 1 && <span className="px-1">/</span>}
+                    {i < language.length - 1 && <span className="px-1">/</span>}
                   </span>
                 ))
               ) : (
                 <span>Nenhum idioma informado</span>
               )}
             </span>
-            <span className="text-sm">{avaliacao}/5</span>
+            <span className="text-sm">{ratings}/5</span>
           </div>
           
         </div>

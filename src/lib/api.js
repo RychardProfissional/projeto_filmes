@@ -1,3 +1,5 @@
+"use server";
+
 import axios from "axios";
 
 function CreateAxiosInstance(path = "") {
@@ -6,10 +8,11 @@ function CreateAxiosInstance(path = "") {
         timeout: 10000,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + process.env.NEXT_PUBLIC_TMDB_API_KEY
         }
     })
     return instance;
 }
 
 export var api = CreateAxiosInstance()
+export var api_filmes = CreateAxiosInstance('filmes')
+export var api_generos = CreateAxiosInstance('generos')

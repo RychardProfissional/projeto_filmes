@@ -1,8 +1,13 @@
+import { MODAL } from '@/lib/constants/modal';
 import { useState, useEffect } from 'react';
+import { DefaultModal } from './types';
 import ReactDOM from 'react-dom';
-import { BiX } from 'react-icons/bi';
 
-export default function Modal({ isOpen, onClose, children }) {
+const types = {
+  [MODAL.DEFAULT]: DefaultModal
+}
+
+export default function Modal({ isOpen, onClose, children, type = MODAL.DEFAULT }) {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -18,17 +23,10 @@ export default function Modal({ isOpen, onClose, children }) {
   
   if (!isClient || !isOpen) return null;
 
+  const Component = types[type];
+
   return ReactDOM.createPortal(
-    <div className="fixed inset-0 top-0 z-50 flex items-center justify-center bg-red-50 bg-opacity-45">
-      <div className="relative max-h-[80vh] p-4 overflow-auto bg-white rounded-lg">
-        <button className='absolute p-2 top-1 right-1' onClick={onClose}>
-          <BiX className='w-6 h-6' />
-        </button>
-        <div className="mt-6">
-          {children}
-        </div>
-      </div>
-    </div>,
+    <Component onClose={onClose}>{children}</Component>,
     document.body 
   );
 };

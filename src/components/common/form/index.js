@@ -13,7 +13,7 @@ export default function Form({
     onClose = () => {},
 }) {
     const [errors, setErrors] = useState({});
-
+    console.log()
     const schema = getSchema(inputs);
 
     const handleSubmit = async (e) => {
