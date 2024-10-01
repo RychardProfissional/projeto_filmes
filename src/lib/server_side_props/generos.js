@@ -11,7 +11,7 @@ export async function get(id) {
     .catch(e => {
       console.error(e.message)
       return { success: false, message: "Ocorreu um erro ao buscar o genero." }
-    })
+    })  
 }
 
 export async function getAll() {
@@ -27,6 +27,7 @@ export async function getAll() {
 }
 
 export async function create(genero) {
+    console.log(genero)
     return await api_generos.post("/", genero)
         .then(res => {
             if (res.status >= 200 && res.status < 300) return { success: true, body: res.data };

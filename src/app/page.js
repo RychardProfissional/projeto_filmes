@@ -20,19 +20,30 @@ export default async function Home() {
 
 const CardsFilters = [
   {
-    filter: "recentes",
+    filter: {
+      field: "createdAt",
+      operation: "gte",
+      value: new Date(new Date() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+      quantity: 15
+    },
     title: "Novidades"
   },
   {
-    filter: "populares",
-    title: "Mais populares"
+    filter: { 
+      field: "ratings",
+      operation: "gte",
+      value: 8,
+      quantity: 15
+    },
+    title: "Aclamados pela crítica"
   },
   {
-    filter: "avaliados",
-    title: "Aclamados pela critica"
+    filter: {
+      field: "genre",
+      operation: "eq",
+      value: { name: "Comedy" },
+      quantity: 15
+    },
+    title: "Comédia"
   },
-  {
-    filter: "classificados",
-    title: "Mais bem classificados"
-  }
-]
+];

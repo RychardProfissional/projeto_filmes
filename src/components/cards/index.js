@@ -1,18 +1,21 @@
-import { api } from "@/lib/api";
+"use client"
+import * as Filmes from "@/lib/server_side_props/filmes";
 import { Card } from "./card";
+import { useEffect, useState } from "react";
 
-export const Cards = async ({filter, title=""}) => {
-    const filmes = await api.get(`/filmes`)
-      .then(response => {
-        console.log(response.data)
-        return response.data
-      })
-      .catch(e => {
-        console.error(e)
-        return null
-      })
-      
-    if (filmes === null) return 
+
+export const Cards = ({filter, title=""}) => {
+    const [filmes, setFilmes] = useState([])
+
+    useEffect(() => {
+        Filmes.getAllByFilters(filter, 5)
+          .then(f => {
+            console.log(f)
+            if (f.success) {
+              setFilmes(typeof f.body === "object" ? f.body : [])
+            }
+          })
+    }, [])
     
     return (
       <div className="grid max-w-full grid-cols-1 gap-4 overflow-x-auto">

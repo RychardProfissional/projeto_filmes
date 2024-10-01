@@ -37,16 +37,7 @@ export const Card = ({
           </div>
           <div className="flex items-center gap-2">
             <span className="text-sm">
-              {language.length > 0 ? (
-                language.map((id, i) => (
-                  <span key={`idioma-${i}`}>
-                    {id}
-                    {i < language.length - 1 && <span className="px-1">/</span>}
-                  </span>
-                ))
-              ) : (
-                <span>Nenhum idioma informado</span>
-              )}
+              {language}
             </span>
             <span className="text-sm">{ratings}/5</span>
           </div>
