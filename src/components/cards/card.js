@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 export const Card = ({
     imdbID,
     title = '', 
-    plot,
     released,
     poster,
     categorias,
@@ -25,7 +24,7 @@ export const Card = ({
         <div className="flex flex-col gap-2 p-4">
           <div className="flex gap-2 align-middle">
             {rated && <ClassificacaoIndicativa classificacao={rated}/>}
-            <p className="overflow-hidden text-sm max-h-10 line-clamp-2">{plot}</p>
+            <p className="overflow-hidden text-sm max-h-10 line-clamp-2">{title}</p>
           </div>
           <span className="text-sm">{released}</span>
           <div className="flex flex-wrap gap-2">
@@ -39,21 +38,20 @@ export const Card = ({
             <span className="text-sm">
               {language}
             </span>
-            <span className="text-sm">{ratings}/5</span>
+            <span className="text-sm">{(ratings*5)/100}/5</span>
           </div>
-          
         </div>
       </div>
     )
   }
   
 function ClassificacaoIndicativa({ classificacao }) {
-    const color = classificacao === 'L' ? 'bg-green-500' : classificacao === '18' ? 'bg-red-500' : 'bg-orange-500'; 
+    const color = classificacao == '-1' ? 'bg-green-500' : classificacao == '18' ? 'bg-red-500' : 'bg-orange-500'; 
     return (
         <div 
             className={`min-w-10 h-10 rounded-md flex items-center justify-center text-white font-bold text-xl ${color}`}
         >
-            {classificacao}
+            {classificacao == '-1' ? 'L' : classificacao == '18' ? '18+' : classificacao}
         </div>
     );
 }

@@ -1,3 +1,5 @@
+import { BiX } from "react-icons/bi";
+
 export function DefaultModal({ children, onClose }) {
     return (
         <div className="fixed inset-0 top-0 z-50 flex items-center justify-center bg-red-50 bg-opacity-45">

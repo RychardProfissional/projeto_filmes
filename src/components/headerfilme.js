@@ -3,16 +3,27 @@
 import { useState } from "react"
 import Form from "./common/form"
 import * as Yup from 'yup'
+import * as Filmes from "@/lib/server_side_props/filmes"
 import { useUser } from "./context"
 import { INPUT } from "@/lib/constants/forms"
+import { useRouter } from "next/router"
 
-
-export default function HeaderFilme({children}) {
+export default function HeaderFilme({fileId, children}) {
     const [formOpen, setFormOpen] = useState(false)
+    const [genre, setGenre] = useState('')
+    const router = useRouter()
     const user = useUser()
     const isAdmin = user?.roles?.includes('development')
     
     const handleFormSubmit = async (data) => {
+    }
+
+    const handleDel = async () => {
+        Filmes.del(fileId).then((res) => {
+            if (res.success) {
+                router.push('/')
+            }
+        })
     }
     
     const form = {
@@ -55,7 +66,7 @@ export default function HeaderFilme({children}) {
                 ],
             },
             {
-                label: "G nero",
+                label: "Género",
                 name: "generos",
                 defaultValue: '',
                 type: INPUT.SELECT,
@@ -103,6 +114,11 @@ export default function HeaderFilme({children}) {
                     onClick={() => setFormOpen(true)}
                 >
                     Editar
+                </button>
+                <button
+                    onClick={() => handleDel()}
+                >
+                    Remover
                 </button>
             </div>
             <Form {...form} open={formOpen} onClose={() => setFormOpen(false)} />
