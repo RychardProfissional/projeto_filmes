@@ -1,6 +1,6 @@
 'use client'
 
-import logo from '@/imagens/example.png'
+import logo from '@/imagens/logo.webp'
 import { Drawer, Typography } from '@material-tailwind/react';
 import { useState } from 'react';
 import { BiSearch } from 'react-icons/bi'
@@ -59,7 +59,7 @@ export default function Header({ small = false }) {
                 </nav>
                 <HiBars3BottomRight className="block text-3xl text-blue-500 transition-colors cursor-pointer md:hidden hover:text-blue-600" onClick={() => setOpen(true)}/>
             </header>
-            {small && (<div className='h-16' />)} {/* Preça é um negocio triste */}
+            {small && (<div className='h-16' />)} {/* Preça é um negocio triste*//*-faf acho que o seu portugês é mais triste ainda*/}
             <Drawer
                 open={open}
                 onClose={() => setOpen(false)}
