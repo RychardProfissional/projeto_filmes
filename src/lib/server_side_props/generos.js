@@ -27,7 +27,6 @@ export async function getAll() {
 }
 
 export async function create(genero) {
-    console.log(genero)
     return await api_generos.post("/", genero)
         .then(res => {
             if (res.status >= 200 && res.status < 300) return { success: true, body: res.data };

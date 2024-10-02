@@ -4,6 +4,7 @@ import { api_filmes } from '../api';
 import { buildQueryParamsByFilters } from '../util/url';
 
 export async function create(filme) {
+    console.log("create")
   return await api_filmes.post("/", filme)
     .then(res => {
         if (res.status >= 200 && res.status < 300) return { success: true, body: res.data };
@@ -16,7 +17,7 @@ export async function create(filme) {
 }
 
 export async function get(id) {
-    return await api_filmes.get(`/${id}`)
+    return await api_filmes.get(`/by_id/${id}`)
       .then(res => {
         if (res.status >= 200 && res.status < 300) return { success: true, body: res.data };
         throw new Error("Ocorreu um erro ao buscar o filme.")
@@ -28,7 +29,8 @@ export async function get(id) {
   }
 
 export async function getAll() {
-  return await api_filmes.get("/")
+    console.log("getAll")
+  return await api_filmes.get("/all")
     .then(res => {
         if (res.status >= 200 && res.status < 300) return { success: true, body: res.data };
         throw new Error("Ocorreu um erro ao buscar os filmes.")
@@ -40,8 +42,8 @@ export async function getAll() {
 }
 
 export async function getAllByFilters(filters, quantity = 5) {
+    console.log("getAllByFilters")
     const queryParams = buildQueryParamsByFilters(filters, quantity);
-    console.log(queryParams)
     return await api_filmes.get(`/filter${queryParams}`)
         .then(res => {
             if (res.status >= 200 && res.status < 300) return { success: true, body: res.data };
@@ -54,6 +56,7 @@ export async function getAllByFilters(filters, quantity = 5) {
 }
 
 export async function update(id, filme) {
+    console.log("update")
     return await api_filmes.put(`/${id}`, filme)
         .then(res => {
             if (res.status >= 200 && res.status < 300) return { success: true, body: res.data };
@@ -66,6 +69,7 @@ export async function update(id, filme) {
 }  
 
 export async function del(id) {
+    console.log("del")
     return await api_filmes.delete(`/${id}`)
         .then(res => {
             if (res.status >= 200 && res.status < 300) return { success: true, body: res.data };

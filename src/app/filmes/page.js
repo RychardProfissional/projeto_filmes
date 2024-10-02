@@ -1,5 +1,5 @@
 'use client'
-import { Cards } from "@/components/cards";
+import { Cards, CardsFilter } from "@/components/cards";
 import Hero from "@/components/hero";
 import Footer from "@/components/layouts/footer";
 import Header from "@/components/layouts/header";
@@ -17,41 +17,9 @@ export default function Filmes() {
         Novo filme
       </Link>
       <div className="grid max-w-full grid-cols-1 gap-4 my-3 overflow-x-auto">
-        {CardsFilters.map((f, i) => (
-          <Cards key={`filter-${i}`} {...f} />
-        ))}
+        <Cards title={"teste"} />
       </div>
       <Footer/>
     </>
   );
 }
-
-const CardsFilters = [
-  {
-    filter: {
-      field: "createdAt",
-      operation: "gte",
-      value: new Date(new Date() - 7 * 24 * 60 * 60 * 1000).toISOString(),
-      quantity: 15
-    },
-    title: "Novidades"
-  },
-  {
-    filter: { 
-      field: "ratings",
-      operation: "gte",
-      value: 8,
-      quantity: 15
-    },
-    title: "Aclamados pela crítica"
-  },
-  {
-    filter: {
-      field: "genre",
-      operation: "eq",
-      value: { name: "Comedy" },
-      quantity: 15
-    },
-    title: "Comédia"
-  },
-];

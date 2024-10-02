@@ -8,7 +8,6 @@ export const buildQueryParamsByFilters = (filters, quantity) => {
     params += `filter[${field}][operation]=${operation}&`
     if (typeof value === "object" && value !== null) {
       Object.keys(value).forEach(key => {
-        console.log(value[key])
         params += `filter[${field}][value][${key}]=${value[key]}&`
       });
     } else {

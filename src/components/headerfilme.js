@@ -13,7 +13,6 @@ export default function HeaderFilme({children}) {
     const isAdmin = user?.roles?.includes('development')
     
     const handleFormSubmit = async (data) => {
-        console.log(data)
     }
     
     const form = {

@@ -21,15 +21,16 @@ const FilmeForm = () => {
       released: formData.get("released"),
       poster: formData.get("poster"),
       runtime: formData.get("runtime"),
-      ratings: formData.get("ratings"),
       language: formData.get("language"),
+      rated: formData.get("rated"),
       genres: selectedGenres,
     };
 
     try {
       await validationSchema.validate(filme, { abortEarly: false });
-      
-      const created = await Filmes.create(filme);
+      await Filmes.create(filme);
+      e.target.reset();
+      setSelectedGenres([]);
       alert("Filme criado com sucesso!");
     } catch (error) {
       if (error.inner) {
@@ -54,11 +55,7 @@ const FilmeForm = () => {
 
   useEffect(() => {
     Genero.getAll()
-      .then(f => {
-        if (f.success) {
-          setGenres(typeof f.body === "object" ? f.body : [])
-        }
-      })
+      .then(f => f.success && setGenres(typeof f.body === "object" ? f.body : []))
   }, [])
 
   return (
@@ -108,15 +105,15 @@ const FilmeForm = () => {
                 placeholder="Insira a duração em minutos"
               />
             </div>
-            <input
-              className="p-2 border rounded-lg"
-              type="number"
-              name="ratings"
-              placeholder="Classificações"
-              min="0"
-              step="0.1"
-              max="10"
-            />
+            <select className="p-2 border rounded-lg" name="rated">
+              <option value="">Selecione a classificação</option>
+              <option value="-1">Livre</option>
+              <option value="10">10 anos</option>
+              <option value="12">12 anos</option>
+              <option value="14">14 anos</option>
+              <option value="16">16 anos</option>
+              <option value="18">18 anos</option>
+            </select>
             <div>
               <label htmlFor="plot" className="block mb-2 font-medium">
                 Plot:
@@ -161,7 +158,6 @@ const validationSchema = Yup.object().shape({
   released: Yup.date().required("Data de lançamento é obrigatória").nullable(),
   // poster: Yup.string().url("A URL do poster deve ser válida").required("URL do poster é obrigatória"),
   runtime: Yup.number().min(1, "A duração deve ser pelo menos 1 minuto").required("Duração é obrigatória"),
-  ratings: Yup.number().min(0, "A avaliação deve ser um número positivo").max(10, "A avaliação deve ser no máximo 10").required("Avaliação é obrigatória"),
   language: Yup.string().required("Idioma é obrigatório"),
   genres: Yup.array().min(1, "Pelo menos um gênero deve ser selecionado").required("Gêneros são obrigatórios"),
 });

@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
   
 export const Card = ({
-    id,
+    imdbID,
     title = '', 
     plot,
     released,
@@ -12,14 +12,14 @@ export const Card = ({
     runtime,
     genres,
     language = [],
+    rated = "",
     ratings,
-    rated,
   }) => {
     const route = useRouter()
     return (
       <div 
         className="flex flex-col cursor-pointer overflow-hidden font-normal rounded-lg shadow-lg min-w-[27vw] relative group hover:scale-[1.03] transition-all"
-        onClick={() => route.push(`/filmes/${id}`)}
+        onClick={() => route.push(`/filmes/${imdbID}`)}
       >
         <img className="h-[200px] transition-all w-full object-cover" src={poster} alt={title} />
         <div className="flex flex-col gap-2 p-4">

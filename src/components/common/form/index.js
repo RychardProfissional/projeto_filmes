@@ -13,7 +13,6 @@ export default function Form({
     onClose = () => {},
 }) {
     const [errors, setErrors] = useState({});
-    console.log()
     const schema = getSchema(inputs);
 
     const handleSubmit = async (e) => {
@@ -24,8 +23,6 @@ export default function Form({
             obj[entry[0]] = entry[1];
         }
 
-        console.log(obj)
-        
         try {
             await schema.validate(obj, { abortEarly: false });
             setErrors({});
