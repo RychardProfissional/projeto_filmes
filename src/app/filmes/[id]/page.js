@@ -4,18 +4,26 @@ import Assessment from "@/components/assessment"
 import HeaderFilme from "@/components/headerfilme"
 import Footer from "@/components/layouts/footer"
 import Header from "@/components/layouts/header"
-import * as Filmes from "@/lib/server_side_props/filmes"
 import GeneroTag from '@/components/genero_tag'
+import * as Filmes from "@/lib/server_side_props/filmes"
+import * as Genero from "@/lib/server_side_props/generos"
 
 
 export default function Filme({ params }) {
     const [filme, setFilme] = useState(null)
+    const [generos, setGeneros] = useState([])
 
     useEffect(() => {
         Filmes.get(params.id)
             .then(res =>{
                 console.log(res)
                 res.success && setFilme(res.body)
+            })
+            .catch(e => console.error(e))
+        Genero.getAll()
+            .then(res =>{
+                console.log(res)
+                res.success && setGeneros(res.body)
             })
             .catch(e => console.error(e))
     }, [params.id])
@@ -29,7 +37,7 @@ export default function Filme({ params }) {
                         <img src={filme?.imagem} alt={filme?.name} className="object-cover object-center w-auto h-full" />
                     </div>
                     <div className="flex-1 w-full p-4 rounded-lg md:w-1/2 bg-green-50">
-                        <HeaderFilme fileId={params.id}> 
+                        <HeaderFilme filme={filme} generos={generos}> 
                             <span className="text-3xl font-bold">{filme?.title}</span>
                         </HeaderFilme>      
                         <ul className="mt-1 textext-sm">

@@ -6,24 +6,28 @@ import * as Yup from 'yup'
 import * as Filmes from "@/lib/server_side_props/filmes"
 import { useUser } from "./context"
 import { INPUT } from "@/lib/constants/forms"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 
-export default function HeaderFilme({fileId, children}) {
+export default function HeaderFilme({filme, generos, children}) {
     const [formOpen, setFormOpen] = useState(false)
-    const [genre, setGenre] = useState('')
     const router = useRouter()
     const user = useUser()
+    
     const isAdmin = user?.roles?.includes('development')
     
     const handleFormSubmit = async (data) => {
+        console.log(data)
     }
 
     const handleDel = async () => {
-        Filmes.del(fileId).then((res) => {
-            if (res.success) {
-                router.push('/')
-            }
-        })
+        const confirm = window.confirm('Você realmente deseja deletar o filme?')
+        if (confirm) {
+            Filmes.del(filme?.id).then((res) => {
+                if (res.success) {
+                    router.push('/')
+                }
+            })
+        }
     }
     
     const form = {
@@ -32,59 +36,47 @@ export default function HeaderFilme({fileId, children}) {
         isModal: true,
         inputs: [
             {
-                label: "Nome",
-                name: "name",
-                defaultValue: '',
+                label: "Titulo",
+                name: "title",
+                defaultValue: filme?.title,
                 validation: Yup.string().required('O nome não pode estar vazio'),
                 type: INPUT.TEXT,
             },
             {
                 label: "Imagem",
-                name: "imagem",
-                defaultValue: '',
-                validation: Yup.string().url('O link da imagem deve ser válido').required('O link da imagem é obrigatório'),
+                name: "poster",
+                defaultValue: filme?.poster,
+                validation: Yup.string().required('O link da imagem é obrigatório'),
                 type: INPUT.TEXT,
             },
             {
-                label: "Link",
-                name: "link",
-                defaultValue: '',
-                validation: Yup.string().url('O link do filme deve ser válido').required('O link do filme é obrigatorio'),
+                label: "Duração",
+                name: "runtime",
+                defaultValue: filme?.runtime,
+                type: INPUT.NUMBER,
+                validation: Yup.number().min(1, 'A duração deve ser pelo menos 1 minuto').required('A duração é obrigatória'),  
+            },
+            {
+                label: "Idioma",
+                name: "language",
+                defaultValue: filme?.language,
                 type: INPUT.TEXT,
+                validation: Yup.string().required('O idioma é obrigatório'),
             },
             {
-                label: "Categorias",
-                name: "categorias",
-                defaultValue: '',
-                type: INPUT.SELECT,
-                options: [
-                    { label: "Acão", value: "acao" },
-                    { label: "Aventura", value: "aventura" },
-                    { label: "Comedia", value: "comedia" },
-                    { label: "Drama", value: "drama" },
-                    { label: "Ficção", value: "ficcao" },
-                ],
+                label: "Data de lancamento",
+                name: "released",
+                defaultValue: filme?.released,
+                type: INPUT.DATE,
+                validation: Yup.date().required('A data de lancamento é obrigatória').nullable(),
             },
             {
-                label: "Género",
-                name: "generos",
-                defaultValue: '',
+                label: "Classificação",
+                name: "rated",
+                defaultValue: filme?.rated,
                 type: INPUT.SELECT,
                 options: [
-                    { label: "A o", value: "acao" },
-                    { label: "Aventura", value: "aventura" },
-                    { label: "Comedia", value: "comedia" },
-                    { label: "Drama", value: "drama" },
-                    { label: "Fic o", value: "ficcao" },
-                ],
-            },
-            {
-                label: "Classifica o",
-                name: "classificacao",
-                defaultValue: '',
-                type: INPUT.SELECT,
-                options: [
-                    { label: "L", value: "L" },
+                    { label: "L", value: "-1" },
                     { label: "10", value: "10" },
                     { label: "12", value: "12" },
                     { label: "14", value: "14" },
@@ -92,15 +84,16 @@ export default function HeaderFilme({fileId, children}) {
                 ],
             },
             {
-                label: "Sinopse",
-                name: "sinopse",
-                defaultValue: '',
-                type: INPUT.TEXTAREA,
+                label: "Género",
+                name: "generos",
+                defaultValue: filme?.generos?.map((g) => g.id),
+                type: INPUT.MULTISELECT,
+                options: generos?.map((g) => ({ label: g.name, value: g.id })),
             },
             {
-                label: "Descri o",
-                name: "descricao",
-                defaultValue: '',
+                label: "Sinopse",
+                name: "plot",
+                defaultValue: filme?.plot,
                 type: INPUT.TEXTAREA,
             },
         ],
