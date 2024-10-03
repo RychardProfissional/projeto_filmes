@@ -43,7 +43,7 @@ export const Cards = ({title = "", ...props}) => {
   return (
     <div className="grid max-w-full grid-cols-1 gap-4 overflow-x-auto">
       <div className="pl-10 text-2xl font-bold">{title}</div>
-      <div className="flex gap-4 py-3 pl-10 flex-nowrap lg:flex-nowrap lg:overflow-x-auto lg:scroll-smooth">  
+      <div className="grid grid-cols-3 gap-4 px-10 py-3 m-auto">  
         {console.log(filmes)}
         {filmes.map((f, i) => (
           <Card key={`card-${i}`} {...f} />

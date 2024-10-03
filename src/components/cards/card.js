@@ -31,7 +31,7 @@ export const Card = ({
             {categorias?.map((c, i) => <span key={`categoria-${i}`} className="px-2 text-sm bg-gray-200 rounded-full">{c}</span>)}
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-sm">{runtime} min</span>
+            <span className="text-sm">{runtime}</span>
             <span className="text-sm">{genres?.map((g, i) => <span key={`genero-${i}`}>{g}</span>)}</span>
           </div>
           <div className="flex items-center gap-2">
