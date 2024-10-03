@@ -20,9 +20,15 @@ export default function Form({
         const formData = new FormData(e.target);
         const obj = {};
         for (const entry of formData.entries()) {
-            obj[entry[0]] = entry[1];
+            const value = entry[1];
+            if (typeof value === 'string' && value.startsWith('[') && value.endsWith(']')) {
+                obj[entry[0]] = JSON.parse(value);
+            } else {
+                obj[entry[0]] = value;
+            }
         }
-
+        console.log("obj: ")
+        console.log(obj)
         try {
             await schema.validate(obj, { abortEarly: false });
             setErrors({});

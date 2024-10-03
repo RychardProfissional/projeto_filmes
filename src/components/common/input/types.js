@@ -117,13 +117,9 @@ export function InputMultiSelect({ options = [], label, className, name, default
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
   const handleOptionChange = (value) => {
-      setSelectedOptions((prev) => {
-          if (prev.includes(value)) {
-              return prev.filter((item) => item !== value);
-          } else {
-              return [...prev, value];
-          }
-      });
+      setSelectedOptions((prev) => 
+          prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+      );
   };
 
   return (
@@ -153,7 +149,9 @@ export function InputMultiSelect({ options = [], label, className, name, default
                   ))}
               </div>
           )}
-          {<span className={`text-sm text-red-500 h-3 ${error? "": "opacity-0"}`}>{error}</span>}
+          {}
+          <input type="hidden" name={name} value={JSON.stringify(selectedOptions)} />
+          <span className={`text-sm text-red-500 h-3 ${error ? "" : "opacity-0"}`}>{error}</span>
       </div>
   );
 }

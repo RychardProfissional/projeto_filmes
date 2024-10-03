@@ -1,14 +1,15 @@
 'use client'
 
 import { useState } from "react"
+import { useUser } from "./context"
+import { useRouter } from "next/navigation"
+import { FaEdit, FaTrash } from "react-icons/fa"
 import Form from "./common/form"
+import { INPUT } from "@/lib/constants/forms"
 import * as Yup from 'yup'
 import * as Filmes from "@/lib/server_side_props/filmes"
-import { useUser } from "./context"
-import { INPUT } from "@/lib/constants/forms"
-import { useRouter } from "next/navigation"
 
-export default function HeaderFilme({filme, generos, children}) {
+export default function HeaderFilme({filme, generos, children, setFilme}) {
     const [formOpen, setFormOpen] = useState(false)
     const router = useRouter()
     const user = useUser()
@@ -16,7 +17,14 @@ export default function HeaderFilme({filme, generos, children}) {
     const isAdmin = user?.roles?.includes('development')
     
     const handleFormSubmit = async (data) => {
-        console.log(data)
+        console.log(filme)
+        Filmes.update(filme?.imdbID, data).then((res) => {
+            if (res.success) {
+                console.log("update filme: ")
+                console.log(res.body)
+                setFilme && setFilme(res.body)
+            }
+        })
     }
 
     const handleDel = async () => {
@@ -102,17 +110,21 @@ export default function HeaderFilme({filme, generos, children}) {
     return isAdmin ? (
         <>
             <div className="flex justify-between">
-                {children}
-                <button
-                    onClick={() => setFormOpen(true)}
-                >
-                    Editar
-                </button>
-                <button
-                    onClick={() => handleDel()}
-                >
-                    Remover
-                </button>
+                <div>
+                    {children}
+                </div>
+                <div className="flex gap-5 px-2">
+                    <button
+                        onClick={() => setFormOpen(true)}
+                    >
+                        <FaEdit className="w-5 h-5 text-blue-600" />
+                    </button>
+                    <button
+                        onClick={() => handleDel()}
+                    >
+                        <FaTrash className="w-5 h-5 text-red-600"/>
+                    </button>
+                </div>
             </div>
             <Form {...form} open={formOpen} onClose={() => setFormOpen(false)} />
         </>

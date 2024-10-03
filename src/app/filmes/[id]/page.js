@@ -8,7 +8,6 @@ import GeneroTag from '@/components/genero_tag'
 import * as Filmes from "@/lib/server_side_props/filmes"
 import * as Genero from "@/lib/server_side_props/generos"
 
-
 export default function Filme({ params }) {
     const [filme, setFilme] = useState(null)
     const [generos, setGeneros] = useState([])
@@ -34,10 +33,10 @@ export default function Filme({ params }) {
             <div className="container p-10 mx-auto bg-green-100 shadow-lg rounded-b-xl">
                 <main className="flex flex-col gap-4 md:flex-row">
                     <div className="w-[300px] md:w-[200px] lg:m-0 m-auto h-[22.5rem] bg-red-50 flex items-center overflow-hidden justify-center rounded-lg">
-                        <img src={filme?.imagem} alt={filme?.name} className="object-cover object-center w-auto h-full" />
+                        <img src={filme?.poster} alt={filme?.name} className="object-cover object-center w-auto h-full" />
                     </div>
-                    <div className="flex-1 w-full p-4 rounded-lg md:w-1/2 bg-green-50">
-                        <HeaderFilme filme={filme} generos={generos}> 
+                    <div className="flex flex-col flex-1 w-full p-4 rounded-lg md:w-1/2 bg-green-50">
+                        <HeaderFilme filme={filme} generos={generos} setFilme={setFilme}> 
                             <span className="text-3xl font-bold">{filme?.title}</span>
                         </HeaderFilme>      
                         <ul className="mt-1 textext-sm">
@@ -50,10 +49,16 @@ export default function Filme({ params }) {
                                 </span> 
                             </li>
                             <li>
-                                <span className="font-bold">Data de Lançamento:</span> {filme?.data_lancamento}
+                                <span className="">Data de Lançamento:</span> {new Date(filme?.released).toLocaleDateString()}
                             </li>
-                            <li className="flex flex-wrap gap-2">
-                                gêneros: {filme?.generos?.map((g, i) => (
+                            <li>
+                                <span className="">Duração:</span> {filme?.runtime} min
+                            </li>
+                            <li>
+                                <span className="">Idioma:</span> {filme?.language}
+                            </li>
+                            <li className="flex flex-wrap gap-2 mt-1">
+                                {filme?.generos?.map((g, i) => (
                                     <GeneroTag 
                                         key={i} 
                                         genero={g} 
@@ -61,21 +66,19 @@ export default function Filme({ params }) {
                                     />
                                 ))}  
                             </li>
+                            <li className="font-bold">
+                                Sinopse:
+                            </li>
                         </ul>
+                        <div className='flex-1 p-2 bg-gray-100'>
+                            {filme?.plot}
+                        </div>
                     </div>
                 </main>
                 <div className="py-10">
                     <p className="whitespace-pre-wrap">{filme?.descricao}</p>
                     <ul className="mt-4 text-sm">
-                        <li>
-                            <span className="font-bold">Duração:</span> {filme?.runtime} min
-                        </li>
-                        <li>
-                            <span className="font-bold">Idiomas:</span> {filme?.language}
-                        </li>
-                        <li>
-                            <span className="font-bold">Sinopse:</span> {filme?.plot}
-                        </li>
+                        
                     </ul>
                 </div>
             </div>

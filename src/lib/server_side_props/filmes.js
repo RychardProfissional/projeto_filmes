@@ -56,7 +56,7 @@ export async function getAllByFilters(filters, quantity = 5) {
 }
 
 export async function update(id, filme) {
-    console.log("update")
+    if (!id) return
     return await api_filmes.put(`/${id}`, filme)
         .then(res => {
             if (res.status >= 200 && res.status < 300) return { success: true, body: res.data };

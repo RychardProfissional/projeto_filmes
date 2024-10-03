@@ -22,9 +22,9 @@ export const Card = ({
       >
         <img className="h-[200px] transition-all w-full object-cover" src={poster} alt={title} />
         <div className="flex flex-col gap-2 p-4">
-          <div className="flex gap-2 align-middle">
+          <div className="flex items-center justify-between gap-2 align-middle">
+            <h3 className="flex-1 py-2 overflow-hidden text-lg bg-gray-100 max-h-10 line-clamp-2">{title}</h3>
             {rated && <ClassificacaoIndicativa classificacao={rated}/>}
-            <p className="overflow-hidden text-sm max-h-10 line-clamp-2">{title}</p>
           </div>
           <span className="text-sm">{released}</span>
           <div className="flex flex-wrap gap-2">
