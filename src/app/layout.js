@@ -1,8 +1,7 @@
+import { UserProvider } from "@/components/context";
 import localFont from "next/font/local";
 import { headers } from 'next/headers';
-import { isValidElement, cloneElement, Children } from "react";
 import "./globals.css";
-import { UserProvider } from "@/components/context";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

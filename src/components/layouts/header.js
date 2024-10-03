@@ -36,11 +36,11 @@ export default function Header({ small = false }) {
 
     return (
         <>
-            <header className={`flex justify-between items-center fixed top-0 w-full z-10 transition-all duration-500 ${small || y > 3 ? 'h-16 px-5' : 'h-24 px-3'} bg-blue-50`}>
+            <header className={`flex justify-between items-center fixed top-0 w-full z-10  transition-all duration-500 ${small || y > 3 ? 'h-16 px-5 bg-gray-500/70' : 'h-24 px-3 bg-gradient-to-t from-transparent to-gray-500'}`}>
                 <div className="w-24 h-full bg-center bg-cover">
                     <img src={logo.src} alt="Logotipo" className="object-contain w-full h-full" />
                 </div>
-                <nav className="hidden gap-4 tems-center md:flex">
+                <nav className="hidden gap-4 mx-3 tems-center md:flex">
                     <div className="flex items-center gap-4">
                         <div className="relative flex items-center w-48 py-1 pl-2 bg-white rounded-md pr-9 focus:ring-2">
                             <input 
@@ -51,7 +51,7 @@ export default function Header({ small = false }) {
                             <BiSearch className="absolute p-1 text-blue-500 transition-all -translate-y-1/2 rounded-md h-7 w-7 top-1/2 right-1 hover:bg-blue-100" />
                         </div>
                         {nav.map(({ name, href }) => (
-                            <a key={name} href={href} className="text-lg font-bold text-blue-500 transition-colors hover:text-blue-600">
+                            <a key={name} href={href} className="text-lg font-bold text-gray-200 transition-all hover:text-white">
                                 {name}
                             </a>
                         ))}

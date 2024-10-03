@@ -14,3 +14,19 @@
 .relief {
   box-shadow: inset -10px -10px 10px rgba(0, 0, 0, 0.5), inset 15px 15px 10px rgba(255, 255, 255, 0.479), 10px 10px 15px rgba(0, 0, 0, 0.3);
 }
+
+.animate-slide-in {
+  animation: slide-in 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+@keyframes slide-in {
+  0% {
+      transform: translateX(-100%);
+      opacity: 0;
+  }
+  100% {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
+
