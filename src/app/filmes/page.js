@@ -10,14 +10,18 @@ export default function Filmes() {
     <>
       <Header />
       <Hero title="Gerenciador dos filmes" />
-      <Link 
-        href="/filmes/register" 
-        className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
-      >
-        Novo filme
-      </Link>
-      <div className="grid max-w-full grid-cols-1 gap-4 my-3 overflow-x-auto">
-        <Cards title={"teste"} />
+      <div className=" bg-blue-100">
+        <div className="flex justify-center">
+          <Link 
+            href="/filmes/register" 
+            className="px-10 py-2 font-bold text-white bg-red-500 rounded-b-full hover:bg-blue-700"
+          >
+            Adicionar um novo filme
+          </Link>
+        </div>
+        <div className="grid max-w-full grid-cols-1 gap-4 my-3 overflow-x-auto">
+          <Cards title={"teste"} />
+        </div>
       </div>
       <Footer/>
     </>

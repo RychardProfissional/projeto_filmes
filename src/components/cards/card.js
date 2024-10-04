@@ -17,7 +17,7 @@ export const Card = ({
     const route = useRouter()
     return (
       <div 
-        className="flex flex-col cursor-pointer overflow-hidden font-normal rounded-lg shadow-lg min-w-[27vw] relative group hover:scale-[1.03] transition-all"
+        className="bg-gray-100 flex flex-col cursor-pointer overflow-hidden font-normal rounded-lg shadow-lg min-w-[27vw] relative group hover:scale-[1.03] transition-all"
         onClick={() => route.push(`/filmes/${imdbID}`)}
       >
         <img className="h-[200px] transition-all w-full object-cover" src={poster} alt={title} />

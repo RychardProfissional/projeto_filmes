@@ -68,9 +68,9 @@ export default function Generos() {
         <div className="container flex justify-center mx-auto h-[90vh] items-center">
           <main className="relative p-10 bg-gray-950 shadow-lg rounded-xl w-[50vw] bg-opacity-65">
             <div className="flex items-center justify-center h-52">
-              <div className="flex items-center relief justify-center mb-28 bg-blue-100 rounded-full p-[100px]">
+              <div className="flex items-center relief justify-center mb-28 bg-gradient-to-r from-pink-500 to-orange-500 rounded-full p-[100px]">
                 <div className="flex items-center justify-center w-5 h-5">
-                  <h1 className="mt-5 mb-4 font-serif text-3xl font-bold text-center">Gêneros</h1>
+                  <h1 className="text-gray-100 mt-5 mb-4 font-serif text-3xl font-bold text-center">Gêneros</h1>
                 </div>
               </div>
             </div>
@@ -118,7 +118,7 @@ export default function Generos() {
                   <input
                     type="text"
                     name="description"
-                    className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-300"
+                    className="bg-opacity-50 w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-300"
                     value={currentGenero.description}
                     onChange={(e) => setCurrentGenero({ ...currentGenero, description: e.target.value })}
                   />

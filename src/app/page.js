@@ -8,7 +8,7 @@ export default async function Home() {
     <div>
       <Header />
       <Hero title="Filmes Online" />
-      <div className="grid max-w-full grid-cols-1 gap-4 my-3 overflow-x-auto">
+      <div className="bg-blue-100 grid max-w-full grid-cols-1 gap-4 py-5 overflow-x-auto">
         {CardsFilters.map((f, i) => (
           <CardsFilter key={`filter-${i}`} {...f} />
         ))}
